@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)file:///C:/Users/dathompson/Downloads/roman_emperor_simulation%20(2).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMH Module 6: Emperor Crisis &amp; Early Christianity Simulation</title>
+    <style>
+        :root {
+            --primary: #800000;
+            --primary-light: #b30000;
+            --accent: #d4af37;
+            --accent-dark: #aa8c2c;
+            --bg: #f9f6f0;
+            --card-bg: #ffffff;
+            --text: #2b2b2b;
+            --text-light: #555555;
+            --border: #d0c9bc;
+            --success: #2e7d32;
+            --danger: #c62828;
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif, system-ui;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 2px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px double var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Stats Dashboard */
+        .stats-dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #f1ebd9;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 10px;
+            background: var(--card-bg);
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Font Size Control */
+        .font-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .font-btn {
+            background: var(--border);
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .font-btn:hover {
+            background: #b0a695;
+        }
+
+        /* Game Main Display */
+        .game-text {
+            font-size: 1.25rem; /* Increased default text size */
+            margin-bottom: 25px;
+        }
+
+        .game-text p {
+            margin-top: 0;
+        }
+
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-align: left;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .choice-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        /* Feedback Screen */
+        .feedback-container {
+            background: #fdfaf2;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .feedback-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .advance-btn {
+            background-color: var(--accent);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            transition: background-color 0.2s;
+        }
+
+        .advance-btn:hover {
+            background-color: var(--accent-dark);
+        }
+
+        /* End Screen Components */
+        .hidden {
+            display: none !important;
+        }
+
+        .game-over-banner {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .victory { color: var(--success); }
+        .defeat { color: var(--danger); }
+
+        .score-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .score-summary-table th, .score-summary-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        .score-summary-table th {
+            background-color: #f1ebd9;
+            color: var(--primary);
+        }
+
+        /* Section Layouts */
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+        }
+
+        .quiz-option {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fcfcfc;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1.05rem;
+            resize: vertical;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .action-bar {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 2px dashed var(--border);
+            padding-top: 20px;
+        }
+
+        .export-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .export-btn:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Print Media Target Optimization */
+        @media print {
+            body {
+                background-color: #fff;
+                color: #000;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                padding: 0;
+            }
+            .font-controls, .choices-container, .advance-btn, .action-bar, .font-btn {
+                display: none !important;
+            }
+            textarea {
+                border: 1px solid #000;
+                height: auto;
+                min-height: 120px;
+            }
+            .stats-dashboard {
+                background: #fff;
+                border: 1px solid #000;
+            }
+            .stat-card {
+                border: 1px solid #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>The Roman World &amp; Early Christianity</h1>
+        <div class="subtitle">HMH Social Studies Module 6 Interactive Executive Simulation</div>
+    </header>
+
+    <!-- Interactive Font Size Control -->
+    <div class="font-controls" id="fontControls">
+        <button class="font-btn" onclick="adjustFontSize(-0.1)">A- Smaller</button>
+        <button class="font-btn" onclick="adjustFontSize(0.1)">A+ Larger</button>
+    </div>
+
+    <!-- Active Imperial Status Board -->
+    <div class="stats-dashboard">
+        <div class="stat-card">
+            <span class="stat-label">Imperial Year</span>
+            <span class="stat-value" id="statYear">284 CE</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Treasury (Gold)</span>
+            <span class="stat-value" id="statGold">50</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Military Loyalty</span>
+            <span class="stat-value" id="statMilitary">50</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Public Order</span>
+            <span class="stat-value" id="statPublic">50</span>
+        </div>
+    </div>
+
+    <!-- Main Gameplay Sandbox Content -->
+    <div id="gamePlayArea">
+        <div class="game-text" id="scenarioText">
+            <p><strong>Welcome, Noble Emperor.</strong> You ascend the throne in a time of profound structural crisis. The borders are buckling, inflation is rampant, and a rapidly expanding religious movement is shifting civic allegiances away from the traditional state gods. Your choices will decide if the empire endures or fractures into ruin.</p>
+        </div>
+        
+        <div class="choices-container" id="choicesContainer">
+            <button class="choice-btn" onclick="startGame()">Begin Your Reign</button>
+        </div>
+
+        <div class="feedback-container hidden" id="feedbackContainer">
+            <div class="feedback-title" id="feedbackTitle">Consequences Matrix</div>
+            <div id="feedbackText"></div>
+            <button class="advance-btn" id="advanceBtn" onclick="advanceTurn()">Read Consequences &amp; Click Here to Advance ➠</button>
+        </div>
+    </div>
+
+    <!-- Static End Screen Area (Hidden Initially) -->
+    <div id="endScreen" class="hidden">
+        <div id="gameOverBanner" class="game-over-banner"></div>
+        <div id="gameOverDescription" style="font-size: 1.2rem; margin-bottom: 25px; text-align: center;"></div>
+
+        <div class="section-title">Imperial Financial Ledger Summary</div>
+        <p>A historical calculation of your economic asset management and military transaction allocations across your entire imperial tenure.</p>
+        <table class="score-summary-table">
+            <thead>
+                <tr>
+                    <th>Resource Ledger Metric</th>
+                    <th>Final Retained Valuation</th>
+                    <th>Calculated System Status Evaluation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Total Treasury Transacted (Gold)</strong></td>
+                    <td id="ledgerGold">0</td>
+                    <td id="ledgerGoldStatus">Evaluating...</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Military Payroll Loyalty Ratio</strong></td>
+                    <td id="ledgerMilitary">0</td>
+                    <td id="ledgerMilitaryStatus">Evaluating...</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Public Safety / Civil Trust Ratio</strong></td>
+                    <td id="ledgerPublic">0</td>
+                    <td id="ledgerPublicStatus">Evaluating...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Automatic Formative Quiz Module -->
+        <div class="section-title">Module 6 Contextual Knowledge Check</div>
+        <p>Select the most historically accurate response matching the structural realities outlined in your HMH Module 6 text.</p>
+        
+        <div class="quiz-question">
+            <p><strong>1. Why did late Roman reliance on non-Roman mercenaries to guard the borders compromise imperial integrity?</strong></p>
+            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) Mercenaries demanded to live inside Rome's city walls instead of on frontiers.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) They lacked authentic patriotism for Rome and fought strictly for financial pay.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) They refused to wear traditional Roman steel armor due to religious reasons.</label>
+        </div>
+
+        <div class="quiz-question">
+            <p><strong>2. What major economic strategy did Diocletian enact to combat severe asset inflation and currency debasement?</strong></p>
+            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) He banned all trade with external Germanic tribes.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) He ordered all citizens to use barter systems instead of silver denarii coins.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) He established maximum price controls on essential commodities and goods.</label>
+        </div>
+
+        <div class="quiz-question">
+            <p><strong>3. Which features allowed early Christianity to spread rapidly along the Mediterranean trade networks?</strong></p>
+            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) Safe travel infrastructure across Pax Romana roads, open borders, and its broad universal appeal.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) Large state funding grants issued by early Roman emperors before Constantine.</label>
+            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) Complete isolation from the Roman highway networks to avoid local tax collectors.</label>
+        </div>
+
+        <!-- High-Cognition Synthesis Area -->
+        <div class="section-title">Strategic Historical Reflection &amp; Claim Architecture</div>
+        
+        <p><strong>Prompt A: Strategic Trilemma Analysis</strong><br>
+        Evaluate the conflict between Treasury management, Military demand, and Public trust. Why was it mathematically and politically impossible for late Roman emperors to simultaneously keep all three metrics stable?</p>
+        <textarea placeholder="Type your thesis statement and supporting evidence here..."></textarea>
+
+        <p><strong>Prompt B: Ideological Adaptation Dynamics</strong><br>
+        Analyze how your administrative choices regarding early Christianity impacted state structure. Contrast the long-term political effects of state persecution versus legal integration (like Constantine's Edict of Milan).</p>
+        <textarea placeholder="Type your analytical response here..."></textarea>
+
+        <p><strong>Prompt C: Explaining the Collapse</strong><br>
+        Based on your simulation gameplay data and Module 6 text, construct a structured historical claim evaluating whether Rome fell primarily due to internal institutional decay or external environmental/military shocks.</p>
+        <textarea placeholder="Type your formal historical claim here..."></textarea>
+
+        <div class="action-bar">
+            <button class="export-btn" onclick="window.print()">Export / Print Completed Worksheet Report</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Game State Metrics
+    let gold = 50;
+    let military = 50;
+    let publicOrder = 50;
+    let currentTurn = 0;
+    let currentFontSize = 1.25;
+
+    // Year Mapping Array
+    const timelineYears = ["284 CE", "295 CE", "313 CE", "367 CE", "395 CE", "476 CE"];
+
+    // Scenario Content Data Bank
+    const scenarios = [
+        {
+            yearIndex: 0,
+            text: "<p><strong>Phase 1: The Germanic Frontier Breakthroughs.</strong><br>Hostile Germanic tribes smash across the Rhine and Danube river lines. Your frontier legions are understaffed, demanding immediate reinforcements and higher deployment pay. Do you allocate massive treasury funds to hire non-Roman foreign mercenaries, or tax the local agricultural provinces into poverty to fund a native draft?</p>",
+            choices: [
+                {
+                    text: "Hire Germanic Mercenaries immediately to plug the borders. (Saves Gold now, drops Military commitment long-term)",
+                    goldEff: -10, milEff: +15, pubEff: -5,
+                    feedback: "The border holds temporarily, but reliance on foreign mercenaries degrades the discipline of your professional forces. Your regular legions grow highly resentful of foreign payroll competitors."
+                },
+                {
+                    text: "Levy aggressive new taxes across provinces to draft native citizens. (Preserves Military loyalty, slashes Public Order)",
+                    goldEff: +15, milEff: +5, pubEff: -25,
+                    feedback: "You extract the gold required for troop movements, but your rural populations are pushed into immediate economic destitution. Food riots spark in provincial capitals."
+                }
+            ]
+        },
+        {
+            yearIndex: 1,
+            text: "<p><strong>Phase 2: The Currency Inflation Crisis.</strong><br>The treasury is empty, but your legions threaten to stage a violent mutiny unless their pay raises are delivered. Your imperial economic advisors propose debasing the currency by melting copper into the silver <em>denarii</em> to multiply total available coins. How do you respond?</p>",
+            choices: [
+                {
+                    text: "Debase the silver coin supply to quickly pay off the army payroll. (Boosts Military loyalty, triggers massive Inflation/drops Public Order)",
+                    goldEff: +10, milEff: +15, pubEff: -25,
+                    feedback: "The soldiers accept the increased count of coins, but merchants immediately detect the lower metal value. Prices skyrocket overnight. Inflation destroys the purchasing power of common citizens."
+                },
+                {
+                    text: "Refuse currency debasement and implement Diocletian-style strict Price Controls. (Saves Public Order, causes deep Military rage)",
+                    goldEff: -15, milEff: -25, pubEff: +15,
+                    feedback: "Commoners praise your stable price protections, but black markets bloom instantly. The army is furious over their stagnant pay and hints at plans for an imperial coup."
+                }
+            ]
+        },
+        {
+            yearIndex: 2,
+            text: "<p><strong>Phase 3: The Rapid Rise of Early Christianity.</strong><br>Christianity is expanding rapidly across urban trade networks, drawing citizens away from worshiping traditional Roman gods and the Emperor. Traditional patricians demand total state-sponsored persecution to enforce unity. Constantine advises a policy of total religious tolerance via the Edict of Milan. What is your mandate?</p>",
+            choices: [
+                {
+                    text: "Launch widespread state persecutions. Seize church assets to fund state systems. (Gains short-term Gold, tanks internal Public Order)",
+                    goldEff: +20, milEff: +5, pubEff: -25,
+                    feedback: "You confiscate Christian property to bolster the treasury, but creating high-profile martyrs only fuels public resolve. Mass civilian populations quietly detach from supporting your administration."
+                },
+                {
+                    text: "Issue a decree of complete tolerance to integrate the Christian church into the Empire. (Saves Public Order, drops traditionalist Military backing)",
+                    goldEff: -10, milEff: -15, pubEff: +25,
+                    feedback: "Legalizing the church resolves massive social fractures and fosters civic peace across the cities. However, conservative pagan military commanders view you with deep suspicion."
+                }
+            ]
+        },
+        {
+            yearIndex: 3,
+            text: "<p><strong>Phase 4: The Outbreak of the Antonine Plague.</strong><br>A lethal plague vector sweeps down the Roman trade highways, devastating active urban legion garrisons and cutting the working agricultural tax base in half. Morale is cratering, and panic spreads. Local factions demand you blame and execute religious minorities to appease the angry gods.</p>",
+            choices: [
+                {
+                    text: "Scapegoat religious groups to direct public rage away from your failures. (Boosts temporary Public Order, severely drains long-term Gold infrastructure)",
+                    goldEff: -20, milEff: +5, pubEff: +15,
+                    feedback: "Mob violence calms temporary panic, but deep infrastructure damage is done. Labor shortages worsen as trade networks collapse and tax collections fall into ruin."
+                },
+                {
+                    text: "Build state medical sanitariums and protect targeted minority groups. (Protects long-term structural order, drains immediate Treasury and Military security)",
+                    goldEff: -25, milEff: -10, pubEff: +10,
+                    feedback: "Your measured scientific response stabilizes the long-term workforce, but the staggering immediate expenses deplete your imperial vaults down to critical levels."
+                }
+            ]
+        },
+        {
+            yearIndex: 4,
+            text: "<p><strong>Phase 5: Administrative Fracture &amp; Bureaucracy.</strong><br>The sheer geometric size of the empire makes governance from Rome impossible. Barbarians attack the West, while the wealthy East thrives. Do you choose to permanently partition the empire into a Tetrarchy system (East and West) like Diocletian, or enforce centralized direct rule from Rome?</p>",
+            choices: [
+                {
+                    text: "Divide the empire into Eastern and Western halves to localize command. (Stabilizes localized Military defense, bankrupts the Western budget)",
+                    goldEff: -20, milEff: +20, pubEff: -5,
+                    feedback: "The wealthy Eastern half flourishes under this model, but the Western Roman Empire is isolated. Stripped of Eastern cash reserves, the Western provinces collapse economically."
+                },
+                {
+                    text: "Enforce centralized rule directly from Rome. (Consolidates imperial Gold, leaves frontier legions exposed)",
+                    goldEff: +15, milEff: -25, pubEff: -10,
+                    feedback: "You keep all tax revenues locked in the Italian core, but regional governors are unable to respond quickly to distant threats. Distant borders collapse without reinforcements."
+                }
+            ]
+        }
+    ];
+
+    let chosenFeedback = "";
+    let nextGold = 50;
+    let nextMilitary = 50;
+    let nextPublic = 50;
+
+    // Font Scaling Functionality
+    function adjustFontSize(delta) {
+        currentFontSize += delta;
+        if (currentFontSize < 0.9) currentFontSize = 0.9;
+        if (currentFontSize > 1.8) currentFontSize = 1.8;
+        document.getElementById('scenarioText').style.fontSize = currentFontSize + 'rem';
+    }
+
+    // UI Updates
+    function updateDashboard() {
+        document.getElementById('statYear').innerText = timelineYears[currentTurn];
+        document.getElementById('statGold').innerText = gold;
+        document.getElementById('statMilitary').innerText = military;
+        document.getElementById('statPublic').innerText = publicOrder;
+        
+        // Dynamic Metric Alarms
+        document.getElementById('statGold').style.color = gold <= 20 ? 'var(--danger)' : 'var(--primary)';
+        document.getElementById('statMilitary').style.color = military <= 20 ? 'var(--danger)' : 'var(--primary)';
+        document.getElementById('statPublic').style.color = publicOrder <= 20 ? 'var(--danger)' : 'var(--primary)';
+    }
+
+    function startGame() {
+        currentTurn = 0;
+        gold = 50;
+        military = 50;
+        publicOrder = 50;
+        updateDashboard();
+        showScenario();
+    }
+
+    function showScenario() {
+        document.getElementById('feedbackContainer').classList.add('hidden');
+        
+        if (gold <= 0 || military <= 0 || publicOrder <= 0) {
+            triggerGameOver(false);
+            return;
+        }
+
+        if (currentTurn >= scenarios.length) {
+            triggerGameOver(true);
+            return;
+        }
+
+        let s = scenarios[currentTurn];
+        document.getElementById('statYear').innerText = timelineYears[s.yearIndex];
+        document.getElementById('scenarioText').innerHTML = s.text;
+
+        let choicesHtml = "";
+        s.choices.forEach((c, idx) => {
+            choicesHtml += `<button class="choice-btn" onclick="selectChoice(${idx})">${c.text}</button>`;
+        });
+        document.getElementById('choicesContainer').innerHTML = choicesHtml;
+    }
+
+    function selectChoice(choiceIdx) {
+        let s = scenarios[currentTurn];
+        let c = s.choices[choiceIdx];
+
+        // Cache changes to apply after reading feedback
+        nextGold = gold + c.goldEff;
+        nextMilitary = military + c.milEff;
+        nextPublic = publicOrder + c.pubEff;
+
+        chosenFeedback = c.feedback;
+
+        // Hide old choices immediately
+        document.getElementById('choicesContainer').innerHTML = "";
+        
+        // Show persistent consequence feedback module
+        document.getElementById('feedbackText').innerHTML = `<p>${chosenFeedback}</p>
+        <p style="margin-top:15px; font-weight:bold; color:var(--text-light);">
+        Resource Deltas: Gold (${c.goldEff >= 0 ? '+' : ''}${c.goldEff}), 
+        Military (${c.milEff >= 0 ? '+' : ''}${c.milEff}), 
+        Public Order (${c.pubEff >= 0 ? '+' : ''}${c.pubEff})
+        </p>`;
+        document.getElementById('feedbackContainer').classList.remove('hidden');
+    }
+
+    function advanceTurn() {
+        // Enforce state updates manually
+        gold = nextGold;
+        military = nextMilitary;
+        publicOrder = nextPublic;
+
+        currentTurn++;
+        updateDashboard();
+        showScenario();
+    }
+
+    function triggerGameOver(survived) {
+        document.getElementById('gamePlayArea').classList.add('hidden');
+        document.getElementById('endScreen').classList.remove('hidden');
+        document.getElementById('fontControls').classList.add('hidden');
+        
+        // Enforce final year display state
+        document.getElementById('statYear').innerText = timelineYears[5];
+
+        let banner = document.getElementById('gameOverBanner');
+        let desc = document.getElementById('gameOverDescription');
+
+        if (survived && gold > 0 && military > 0 && publicOrder > 0) {
+            banner.innerText = "Imperial Victory: The Empire Endures";
+            banner.className = "game-over-banner victory";
+            desc.innerHTML = "Through strategic structural calibration, your administration stabilized the borders and navigated the ideological transition toward Christianity without triggering a catastrophic societal collapse. You enter history books as a legendary Emperor.";
+        } else {
+            banner.innerText = "Fatal Failure: The Fall of Rome";
+            banner.className = "game-over-banner defeat";
+            
+            if (gold <= 0) {
+                desc.innerText = "The Imperial Treasury has defaulted. Stripped of pay, the border guards abandon their posts, allowing tribes to overrun and sack the capital city. Your administration falls to bankruptcy.";
+            } else if (military <= 0) {
+                desc.innerText = "Military loyalty hit rock bottom. Disgruntled legion commanders march directly on Rome, breaking into your palace apartments and executing you to crown a rival general.";
+            } else {
+                desc.innerText = "Public order disintegrated. Widespread citizen insurrections consume the major provinces, breaking local supply chains and tearing down the imperial administrative framework.";
+            }
+        }
+
+        // Generate Ledger Analysis
+        document.getElementById('ledgerGold').innerText = gold;
+        document.getElementById('ledgerMilitary').innerText = military;
+        document.getElementById('ledgerPublic').innerText = publicOrder;
+
+        document.getElementById('ledgerGoldStatus').innerText = gold > 30 ? "Solvent Capital Surplus" : (gold > 0 ? "Stagnant/Depleted Assets" : "Complete Financial Default");
+        document.getElementById('ledgerMilitaryStatus').innerText = military > 60 ? "Loyal Armed Hegemony" : (military > 0 ? "Factional/Mutinous Legions" : "Assassinated via Palace Coup");
+        document.getElementById('ledgerPublicStatus').innerText = publicOrder > 60 ? "Pax Romana Civil Stability" : (publicOrder > 0 ? "Widespread Urban Insurgency" : "Overthrown via Popular Revolt");
+    }
+</script>
+
+
+
+</body></html>
