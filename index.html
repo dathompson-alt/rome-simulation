@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- saved from url=(0073)file:///C:/Users/dathompson/Downloads/roman_emperor_simulation%20(2).html -->
+<!-- saved from url=(0064)file:///C:/Users/13092/Downloads/roman_emperor_simulation_1.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMH Module 6: Emperor Crisis &amp; Early Christianity Simulation</title>
     <style>
@@ -18,7 +18,7 @@
             --success: #2e7d32;
             --danger: #c62828;
         }
-        
+
         body {
             font-family: 'Times New Roman', Times, serif, system-ui;
             background-color: var(--bg);
@@ -58,6 +58,53 @@
             color: var(--text-light);
             font-size: 1.1rem;
             margin: 0;
+        }
+
+        /* Student Name Bar */
+        .student-name-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #f1ebd9;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+        }
+
+        .student-name-bar label {
+            font-weight: bold;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .student-name-bar input {
+            font-family: inherit;
+            font-size: 1.05rem;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            min-width: 260px;
+            flex: 1;
+            max-width: 380px;
+        }
+
+        .student-name-bar input:invalid {
+            border-color: var(--border);
+        }
+
+        .name-warning {
+            color: var(--danger);
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: none;
+            width: 100%;
+            text-align: center;
+            margin-top: 4px;
         }
 
         /* Stats Dashboard */
@@ -302,6 +349,15 @@
             .font-controls, .choices-container, .advance-btn, .action-bar, .font-btn {
                 display: none !important;
             }
+            .student-name-bar {
+                background: #fff;
+                border: 1px solid #000;
+            }
+            .student-name-bar input {
+                border: none;
+                border-bottom: 1px solid #000;
+                border-radius: 0;
+            }
             textarea {
                 border: 1px solid #000;
                 height: auto;
@@ -324,6 +380,13 @@
         <h1>The Roman World &amp; Early Christianity</h1>
         <div class="subtitle">HMH Social Studies Module 6 Interactive Executive Simulation</div>
     </header>
+
+    <!-- Student Name Entry -->
+    <div class="student-name-bar">
+        <label for="studentNameInput">Student Name:</label>
+        <input type="text" id="studentNameInput" placeholder="Type your full name here" autocomplete="name" oninput="onNameInput()">
+        <div class="name-warning" id="nameWarning">Please type your name before you begin your reign.</div>
+    </div>
 
     <!-- Interactive Font Size Control -->
     <div class="font-controls" id="fontControls">
@@ -356,7 +419,7 @@
         <div class="game-text" id="scenarioText">
             <p><strong>Welcome, Noble Emperor.</strong> You ascend the throne in a time of profound structural crisis. The borders are buckling, inflation is rampant, and a rapidly expanding religious movement is shifting civic allegiances away from the traditional state gods. Your choices will decide if the empire endures or fractures into ruin.</p>
         </div>
-        
+
         <div class="choices-container" id="choicesContainer">
             <button class="choice-btn" onclick="startGame()">Begin Your Reign</button>
         </div>
@@ -405,7 +468,7 @@
         <!-- Automatic Formative Quiz Module -->
         <div class="section-title">Module 6 Contextual Knowledge Check</div>
         <p>Select the most historically accurate response matching the structural realities outlined in your HMH Module 6 text.</p>
-        
+
         <div class="quiz-question">
             <p><strong>1. Why did late Roman reliance on non-Roman mercenaries to guard the borders compromise imperial integrity?</strong></p>
             <label class="quiz-option"><input type="radio" name="q1" value="A"> A) Mercenaries demanded to live inside Rome's city walls instead of on frontiers.</label>
@@ -415,21 +478,21 @@
 
         <div class="quiz-question">
             <p><strong>2. What major economic strategy did Diocletian enact to combat severe asset inflation and currency debasement?</strong></p>
-            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) He banned all trade with external Germanic tribes.</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) He ordered all citizens to use barter systems instead of silver denarii coins.</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) He established maximum price controls on essential commodities and goods.</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="A"> A) He banned all trade with external Germanic tribes.</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="B"> B) He ordered all citizens to use barter systems instead of silver denarii coins.</label>
+            <label class="quiz-option"><input type="radio" name="q2" value="C"> C) He established maximum price controls on essential commodities and goods.</label>
         </div>
 
         <div class="quiz-question">
             <p><strong>3. Which features allowed early Christianity to spread rapidly along the Mediterranean trade networks?</strong></p>
-            <label class="quiz-option"><input type="radio" name="q1" value="A"> A) Safe travel infrastructure across Pax Romana roads, open borders, and its broad universal appeal.</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="B"> B) Large state funding grants issued by early Roman emperors before Constantine.</label>
-            <label class="quiz-option"><input type="radio" name="q1" value="C"> C) Complete isolation from the Roman highway networks to avoid local tax collectors.</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="A"> A) Safe travel infrastructure across Pax Romana roads, open borders, and its broad universal appeal.</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="B"> B) Large state funding grants issued by early Roman emperors before Constantine.</label>
+            <label class="quiz-option"><input type="radio" name="q3" value="C"> C) Complete isolation from the Roman highway networks to avoid local tax collectors.</label>
         </div>
 
         <!-- High-Cognition Synthesis Area -->
         <div class="section-title">Strategic Historical Reflection &amp; Claim Architecture</div>
-        
+
         <p><strong>Prompt A: Strategic Trilemma Analysis</strong><br>
         Evaluate the conflict between Treasury management, Military demand, and Public trust. Why was it mathematically and politically impossible for late Roman emperors to simultaneously keep all three metrics stable?</p>
         <textarea placeholder="Type your thesis statement and supporting evidence here..."></textarea>
@@ -455,6 +518,7 @@
     let publicOrder = 50;
     let currentTurn = 0;
     let currentFontSize = 1.25;
+    let studentName = "";
 
     // Year Mapping Array
     const timelineYears = ["284 CE", "295 CE", "313 CE", "367 CE", "395 CE", "476 CE"];
@@ -548,6 +612,12 @@
     let nextMilitary = 50;
     let nextPublic = 50;
 
+    // Student Name Handling
+    function onNameInput() {
+        studentName = document.getElementById('studentNameInput').value.trim();
+        document.getElementById('nameWarning').style.display = 'none';
+    }
+
     // Font Scaling Functionality
     function adjustFontSize(delta) {
         currentFontSize += delta;
@@ -562,7 +632,7 @@
         document.getElementById('statGold').innerText = gold;
         document.getElementById('statMilitary').innerText = military;
         document.getElementById('statPublic').innerText = publicOrder;
-        
+
         // Dynamic Metric Alarms
         document.getElementById('statGold').style.color = gold <= 20 ? 'var(--danger)' : 'var(--primary)';
         document.getElementById('statMilitary').style.color = military <= 20 ? 'var(--danger)' : 'var(--primary)';
@@ -570,6 +640,14 @@
     }
 
     function startGame() {
+        studentName = document.getElementById('studentNameInput').value.trim();
+        if (!studentName) {
+            document.getElementById('nameWarning').style.display = 'block';
+            document.getElementById('studentNameInput').focus();
+            return;
+        }
+        document.getElementById('studentNameInput').setAttribute('readonly', 'readonly');
+
         currentTurn = 0;
         gold = 50;
         military = 50;
@@ -580,7 +658,7 @@
 
     function showScenario() {
         document.getElementById('feedbackContainer').classList.add('hidden');
-        
+
         if (gold <= 0 || military <= 0 || publicOrder <= 0) {
             triggerGameOver(false);
             return;
@@ -615,12 +693,12 @@
 
         // Hide old choices immediately
         document.getElementById('choicesContainer').innerHTML = "";
-        
+
         // Show persistent consequence feedback module
         document.getElementById('feedbackText').innerHTML = `<p>${chosenFeedback}</p>
         <p style="margin-top:15px; font-weight:bold; color:var(--text-light);">
-        Resource Deltas: Gold (${c.goldEff >= 0 ? '+' : ''}${c.goldEff}), 
-        Military (${c.milEff >= 0 ? '+' : ''}${c.milEff}), 
+        Resource Deltas: Gold (${c.goldEff >= 0 ? '+' : ''}${c.goldEff}),
+        Military (${c.milEff >= 0 ? '+' : ''}${c.milEff}),
         Public Order (${c.pubEff >= 0 ? '+' : ''}${c.pubEff})
         </p>`;
         document.getElementById('feedbackContainer').classList.remove('hidden');
@@ -641,7 +719,7 @@
         document.getElementById('gamePlayArea').classList.add('hidden');
         document.getElementById('endScreen').classList.remove('hidden');
         document.getElementById('fontControls').classList.add('hidden');
-        
+
         // Enforce final year display state
         document.getElementById('statYear').innerText = timelineYears[5];
 
@@ -655,7 +733,7 @@
         } else {
             banner.innerText = "Fatal Failure: The Fall of Rome";
             banner.className = "game-over-banner defeat";
-            
+
             if (gold <= 0) {
                 desc.innerText = "The Imperial Treasury has defaulted. Stripped of pay, the border guards abandon their posts, allowing tribes to overrun and sack the capital city. Your administration falls to bankruptcy.";
             } else if (military <= 0) {
@@ -675,6 +753,7 @@
         document.getElementById('ledgerPublicStatus').innerText = publicOrder > 60 ? "Pax Romana Civil Stability" : (publicOrder > 0 ? "Widespread Urban Insurgency" : "Overthrown via Popular Revolt");
     }
 </script>
+
 
 
 
